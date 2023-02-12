@@ -28,10 +28,6 @@ int main(void) {
         v1[b-1].push_back(a);
     }
     
-    for(int j=0; j<n; j++) {
-        sort(v1[j].begin(), v1[j].end());
-    }
-    
     for(int z=0; z<n; z++) {
         if(!check[z]) {
             checkComponent(z+1);

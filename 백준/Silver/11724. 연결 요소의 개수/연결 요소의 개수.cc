@@ -8,6 +8,8 @@ int n,m;
 vector<int> check;
 
 void checkComponent(int x) {
+    if(check[x-1])
+        return;
     check[x-1]=1;
     for(int i=0; i < v1[x-1].size(); i++) {
         if(!check[v1[x-1][i]-1])
@@ -16,6 +18,7 @@ void checkComponent(int x) {
 }
 
 int main(void) {
+    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     int a,b;
     int count = 0;
     cin >> n >> m;

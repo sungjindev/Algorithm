@@ -32,9 +32,6 @@ int main(void) {
         sort(v1[j].begin(), v1[j].end());
     }
     
-    checkComponent(1);
-    count++;
-    
     for(int z=0; z<n; z++) {
         if(!check[z]) {
             checkComponent(z+1);

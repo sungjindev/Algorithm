@@ -7,14 +7,13 @@ using namespace std;
 #define MAX 1000001
 
 int visited[MAX] = {0,};
-int depth[MAX] = {0,};
 
 int main(void) {
     int f,s,g,u,d;
     cin >> f >> s >> g >> u >> d;
     queue<int> q1;
     q1.push(s);
-    visited[s] = 1;
+    visited[s] = 0;
     
     
     while(!q1.empty()) {
@@ -22,17 +21,15 @@ int main(void) {
             break;
         } else {
             if(q1.front()+u <= f) {
-                if(!visited[q1.front()+u]) {
+                if(!visited[q1.front()+u] && q1.front()+u != s) {
                     q1.push(q1.front()+u);
-                    visited[q1.front()+u] = 1;
-                    depth[q1.front()+u] = depth[q1.front()]+1;
+                    visited[q1.front()+u] = visited[q1.front()]+1;
                 }
             }
             if(q1.front()-d >= 1) {
-                if(!visited[q1.front()-d]) {
+                if(!visited[q1.front()-d] && q1.front()-d != s) {
                     q1.push(q1.front()-d);
-                    visited[q1.front()-d] = 1;
-                    depth[q1.front()-d] = depth[q1.front()]+1;
+                    visited[q1.front()-d] = visited[q1.front()]+1;
                 }
             }
         }
@@ -40,7 +37,7 @@ int main(void) {
     }
     
     if(!q1.empty())
-        cout << depth[g];
+        cout << visited[g];
     else
         cout << "use the stairs";
     

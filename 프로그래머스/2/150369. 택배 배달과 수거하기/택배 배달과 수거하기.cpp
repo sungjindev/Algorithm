@@ -8,49 +8,16 @@ using namespace std;
 
 long long solution(int cap, int n, vector<int> deliveries, vector<int> pickups) {
     long long answer = 0;
-  
-   while(1) {
-       if(deliveries.size() != 0) {           
-           if(deliveries.back() == 0)
-               deliveries.pop_back();
-           else
-               break;
-       } else
-           break;
-   }
-   while(1) {
-       if(pickups.size() != 0) {           
-           if(pickups.back() == 0)
-               pickups.pop_back();
-           else
-               break;
-       } else
-           break;
-   }
     
     while(deliveries.size() != 0 || pickups.size() != 0) {
         int capa = cap;
         
-        while(1) {
-            if(deliveries.size() != 0) {           
-                if(deliveries.back() == 0)
-                    deliveries.pop_back();
-                else
-                    break;
-            } else
-                break;
-        }
-
-        while(1) {
-            if(pickups.size() != 0) {           
-                if(pickups.back() == 0)
-                    pickups.pop_back();
-                else
-                    break;
-            } else
-                break;
-        }
+        while(deliveries.size() != 0 && deliveries.back() == 0)
+            deliveries.pop_back();
         
+        while(pickups.size() != 0 && pickups.back() == 0)
+            pickups.pop_back();
+
         if(deliveries.size() >= pickups.size()){
             answer += (deliveries.size()*2);
         } else {

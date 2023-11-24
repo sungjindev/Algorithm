@@ -39,21 +39,17 @@ bool checkAllZero(string str1) {
 }
 
 bool checkBinaryTree(string digitStr) {
-    if(digitStr.size()==1)
+    if(digitStr.size()==1 || checkAllZero(digitStr))
         return true;
     
     int centIndex = digitStr.size()/2;
     string leftTree = digitStr.substr(0,centIndex);
     string rightTree = digitStr.substr(centIndex+1);
-    if(digitStr[centIndex]-'0' == 0) {
-        if(!checkAllZero(leftTree) || !checkAllZero(rightTree))
-            return false;
-    }
     
-    if(!checkBinaryTree(leftTree) || !checkBinaryTree(rightTree))
+    if(digitStr[centIndex] == '1' && checkBinaryTree(leftTree) && checkBinaryTree(rightTree))
+        return true;
+    else
         return false;
-    
-    return true;
 }
 
 vector<int> solution(vector<long long> numbers) {

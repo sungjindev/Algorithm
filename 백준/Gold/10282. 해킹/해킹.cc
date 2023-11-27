@@ -50,6 +50,7 @@ void dijkstra(void) {
 }
 
 int main(void) {
+    ios::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
     int t=0;
     int n,d,a,b,s;
     cin >> t;

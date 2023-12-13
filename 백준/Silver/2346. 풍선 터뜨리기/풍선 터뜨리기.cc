@@ -15,13 +15,13 @@ int main(void) {
         l1.push_back({i, temp});
     }
     
-    auto target = l1.begin();
+    auto next_target = l1.begin();
     
     while(l1.size()) {
-        cout << (*target).first << " ";
-        int cost = (*target).second;
+        cout << (*next_target).first << " ";
+        int cost = (*next_target).second;
         
-        auto next_target = l1.erase(target);
+        next_target = l1.erase(next_target);
     
         if (l1.empty()) {
             break;
@@ -30,10 +30,8 @@ int main(void) {
         if(cost<0){
             if(next_target == l1.begin()) { 
                 next_target = l1.end();
-                --next_target;
-            } else {
-                --next_target;
-            }
+            } 
+            --next_target;
         } else {
             if(next_target == l1.end()) {
                 next_target = l1.begin();
@@ -44,16 +42,14 @@ int main(void) {
             if(cost < 0) {
                 if(next_target == l1.begin()) {
                     next_target = l1.end();
-                    --next_target;
-                } else
-                    --next_target;
+                }
+                --next_target;
             } else {
                 if(++next_target == l1.end()) {
                     next_target = l1.begin();
                 }
             }
         }
-        target = next_target;
     }
     
     return 0;

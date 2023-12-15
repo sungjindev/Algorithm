@@ -19,24 +19,15 @@ int main(void) {
     }
 
     for(int i=0; i<n; ++i) {
-        if(st1.empty()) {
-            while(current <= v1[i]) {
-                st1.push(current++);
-                str1 += "+";
-            }
+        while(current <= v1[i]) {
+            st1.push(current++);
+            str1 += "+";
+        }
+        
+        if(st1.top() == v1[i]) {
             st1.pop();
             str1 += "-";
-        } else if(st1.top() < v1[i]) {
-            while(current <= v1[i]) {
-                st1.push(current++);
-                str1 += "+";
-            }
-            st1.pop();
-            str1 += "-";
-        } else if(st1.top() == v1[i]) {
-            st1.pop();
-            str1 += "-";
-        } else if(st1.top() > v1[i]) {
+        } else {
             str1 = "NO";
             break;
         }

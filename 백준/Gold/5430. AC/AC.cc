@@ -64,14 +64,10 @@ int main(void) {
             reverse(dq1.begin(), dq1.end());
         
         cout << "[";
-        for(auto it = dq1.begin(); it != dq1.end(); ++it) {
-            if(++it == dq1.end()) {
-                --it;
-                cout << *it;
-                break;
-            }
-            --it;
-            cout << *it << ",";
+        for(int j=0; j<dq1.size(); ++j) {
+            cout << dq1[j];
+            if(j+1 != dq1.size())
+                cout << ",";
         }
         cout << "]\n";
     }

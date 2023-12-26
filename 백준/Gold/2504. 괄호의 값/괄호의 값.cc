@@ -21,11 +21,9 @@ int main(void) {
         if(str1[i] == '(') {
             sum *= 2;
             st1.push(str1[i]);
-            continue;
         } else if(str1[i] == '[') {
             sum *= 3;
             st1.push(str1[i]);
-            continue;
         } else if(str1[i] == ')') {
             if(st1.empty() || st1.top() != '(') {
                 answer = 0;

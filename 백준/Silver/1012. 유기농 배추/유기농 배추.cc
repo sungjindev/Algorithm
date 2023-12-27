@@ -41,11 +41,14 @@ int main(void) {
                     auto cur = q1.front();
                     
                     for(int k=0; k<4; ++k) {
-                        if(cur.X + dx[k] < 0 || cur.X + dx[k] >= m || cur.Y + dy[k] < 0 || cur.Y + dy[k] >= n || visit[cur.X + dx[k]][cur.Y + dy[k]] || !board[cur.X + dx[k]][cur.Y +dy[k]])
+                        int nx = cur.X + dx[k];
+                        int ny = cur.Y + dy[k];
+                        
+                        if(nx < 0 || nx >= m || ny < 0 || ny >= n || visit[nx][ny] || !board[nx][ny])
                             continue;
                         
-                        visit[cur.X+dx[k]][cur.Y+dy[k]] = true;
-                        q1.push({cur.X+dx[k], cur.Y+dy[k]});
+                        visit[nx][ny] = true;
+                        q1.push({nx, ny});
                     }
                     q1.pop();
                 }

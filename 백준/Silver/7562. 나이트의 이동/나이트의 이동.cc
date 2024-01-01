@@ -23,9 +23,14 @@ int main(void) {
         cin >> x >> y >> targetX >> targetY;
         visit[x][y] = 0;
         q1.push({x,y});
+        
         while(!q1.empty()) {
             auto cur = q1.front();
             q1.pop();
+            
+            if(cur.X == targetX && cur.Y == targetY) {
+                    break;
+            }
             
             for(int j=0; j<8; ++j) {
                 int nx = cur.X + dx[j];

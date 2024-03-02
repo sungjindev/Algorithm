@@ -14,33 +14,24 @@ using namespace std;
 //우선 N의 상관 없이 다음 로직은 모두 적용된다.
 //2^(n-1)이 한 변의 절반 길이이므로 r,c를 각각 2^(n-1)로 나눈다. 이때 몫이 짝수인지 홀수인지 여부에 따라 4사분면을 구할 수 있다.
 
-int zTraversal(int width, int r, int c) {
-    if(width == 2) {    //한편의 길이가 2인, 가장 작은 사각형
-        if(r%2 == 0 && c%2 == 0) {
-            return 1;
-        } else if(r%2 == 0 && c%2 == 1) {
-            return 2;
-        } else if(r%2 == 1 && c%2 == 0) {
-            return 3;
-        } else if(r%2 == 1 && c%2 == 1) {
-            return 4;
-        }
+//이렇게 해서 정답을 구할 수 있었지만, 이번에는 좌표평면 상 평행 이동을 이용해서 조금 더 코드를 예쁘게 작성해봤다.
+
+
+int zTraversal(int n, int r, int c) {
+    if(n==0)
+        return 0;
+    
+    int half = 1 << (n-1);
+    int boxSize = half * half;
+    
+    if(r < half && c < half) {
+        return zTraversal(n-1, r, c);
+    } else if(r < half && c >= half) {
+        return boxSize + zTraversal(n-1, r, c-half);
+    } else if(r >= half && c < half) {
+        return 2*boxSize + zTraversal(n-1, r-half, c);
     }
-    
-    width /= 2;
-    int boxSize = width * width;
-    
-    if(r/width%2 == 0 && c/width%2 == 0) {
-        return zTraversal(width, r, c);
-    } else if(r/width%2 == 0 && c/width%2 == 1) {
-        return zTraversal(width, r, c) + boxSize;
-    } else if(r/width%2 == 1 && c/width%2 == 0) {
-        return zTraversal(width, r, c) + 2*boxSize;
-    } else if(r/width%2 == 1 && c/width%2 == 1) {
-        return zTraversal(width, r, c) + 3*boxSize;
-    }
-    
-    return 0;
+    return 3*boxSize + zTraversal(n-1, r-half, c-half);
 }
 
 int main(void) {
@@ -48,7 +39,7 @@ int main(void) {
     int n,r,c;
     cin >> n >> r >> c;
     
-    cout << zTraversal(pow(2,n), r, c)-1;
+    cout << zTraversal(n, r, c);
     
     return 0;
 }

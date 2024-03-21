@@ -3,7 +3,6 @@
 using namespace std;
 
 int n,m;
-bool isUsed[8] = {0,};
 int arr[8] = {0,};
 int num[8] = {0,};
 
@@ -27,12 +26,10 @@ void recursive(int k) {
         i = arr[k-1]+1;
     
     for(;i<n;++i) {
-        if(!isUsed[i] && temp != num[i]) {
-            isUsed[i] = true;
+        if(temp != num[i]) {
             temp = num[i];
             arr[k] = i;
             recursive(k+1);
-            isUsed[i] = false;
         }
     }
 }

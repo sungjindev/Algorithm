@@ -1,82 +1,67 @@
 #include <iostream>
-#include <vector>
-#include <stack>
-#include <queue>
 #include <algorithm>
+#include <vector>
+#include <queue>
 using namespace std;
 
-vector<vector<int>> v1;
+//이 문제는 기본적인 DFS 순회와 BFS 순회를 할 수 있는지 알아보는 문제이다.
+//나는 DFS는 재귀로 구현할 것이고 BFS는 queue를 이용해 구현할 것이다.
+
+//근데 이 문제에서 주의해야될 부분이 순회를 Vertex 번호가 작은 순서 먼저 해야되는데
+//인접 리스트에 이를 입력할 때 작은 순서대로 들어오지 않는다. 따라서 정렬을 해줘야 한다.
+
 int n,m,v;
 
-void dfs(void) {
-    vector<int> check(n,0);
-    stack<int> s1;
-    s1.push(v);
-    check[v-1]=1;
-    cout << v << " ";
+vector<int> adj[1001];
+bool visited[1001];
+
+void dfs(int curr) {
+    visited[curr] = true;
+    cout << curr << " ";
     
-    while(!s1.empty()) {
-        int min=1001;
-        
-        if(!v1[s1.top()-1].size()) {
-            s1.pop();
+    for(auto v: adj[curr]) {
+        if(visited[v])
             continue;
-        }
-        
-        for(int i=0; i<v1[s1.top()-1].size(); i++) {
-            if((v1[s1.top()-1][i] < min) && !check[v1[s1.top()-1][i]-1])
-                min = v1[s1.top()-1][i];
-        }
-        
-        if(min != 1001) {
-            s1.push(min);
-            check[min-1]=1;
-            cout << min << " ";
-        } else {
-            s1.pop();
-            continue;
-        }
+        dfs(v);
     }
 }
 
-void bfs(void) {
+void bfs(int curr) {
     queue<int> q1;
-    vector<int> check(n,0);
-    q1.push(v);
+    visited[curr] = true;
+    q1.push(curr);
     
     while(!q1.empty()) {
-        for(int i=0; i<v1[q1.front()-1].size(); i++) {
-            if(!check[v1[q1.front()-1][i]-1]) {
-                q1.push(v1[q1.front()-1][i]);
-            }
-        }
-        
-        if(!check[q1.front()-1]) {
-            check[q1.front()-1] = 1;
-            cout << q1.front() << " ";
-        }
+        auto curr = q1.front();
         q1.pop();
+        cout << curr << " ";
+        
+        for(auto v: adj[curr]) {
+            if(visited[v])
+                continue;
+            visited[v] = true;
+            q1.push(v);
+        }
     }
 }
 
 int main(void) {
     int a,b;
     cin >> n >> m >> v;
-    v1= vector<vector<int>>(n,vector<int>());
-    
-    for(int i=0; i<m; i++) {
+    for(int i=0; i<m; ++i) {
         cin >> a >> b;
-        v1[a-1].push_back(b);
-        v1[b-1].push_back(a);
+        adj[a].push_back(b);    //양방향 그래프이므로
+        adj[b].push_back(a);
     }
     
-    for(int j=0; j<n; j++) {
-        sort(v1[j].begin(), v1[j].end());
+    for(int i=1; i<=n; ++i) {
+        sort(adj[i].begin(), adj[i].end()); //순회 순서를 맞춰주기 위해 정렬
     }
     
-    dfs();
+    dfs(v);
     cout << "\n";
-    bfs();
+    fill(visited, visited+n+1, false);    //방문 여부 배열 사용했으니 초기화
+    bfs(v);
     
     return 0;
 }

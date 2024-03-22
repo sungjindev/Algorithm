@@ -12,13 +12,14 @@ using namespace std;
 #define Y second
 
 int board[500][500];
-int visited[500][500]; //여기에 cost도 같이 저장할 것이다.
+bool visited[500][500];
 queue<pair<int,int>> q1;    //BFS를 위한 queue이며 이차원 배열의 인덱스를 pair로 저장한다. 
 
 int dx[4] = {-1, 0, 1, 0};
 int dy[4] = {0, 1, 0, -1};
 
 int pictureNum = 0;
+int pictureMaxSize = 0;
 int n,m;
 
 void bfs(void) {
@@ -41,11 +42,13 @@ void bfs(void) {
                     
                     if(nx < 0 || nx >= n || ny < 0 || ny >= m || visited[nx][ny] || !board[nx][ny])   //배열의 범위를 넘어가거나 이미 방문한 곳은 skip!
                         continue;  //그리고 지도에서 0인 경우도 Skip!
-                        
-                    visited[nx][ny] = ++pictureSize;  //그림의 크기를 정하기 위함
+                    
+                    ++pictureSize;
+                    visited[nx][ny] = true;  //그림의 크기를 정하기 위함
                     q1.push({nx, ny});  //queue에 반드시 push 해주는 거 까먹지 말기
                 }
             }
+            pictureMaxSize = max(pictureMaxSize, pictureSize);
         }
     }
     return;
@@ -63,7 +66,7 @@ int main(void) {
     
     bfs();
     cout << pictureNum << "\n";
-    cout << *max_element(&visited[0][0], &visited[499][500]);
+    cout << pictureMaxSize;
     
     return 0;
 }

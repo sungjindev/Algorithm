@@ -50,7 +50,7 @@ void bfs(void) {
                 continue;
 
             if(board[nx][ny] == '0') {    //다음 이동할 위치가 벽이 아닌 경우
-                if(visited[nx][ny][cw] != MAX)  //초기값이 아니라는 것은 이미 이전에 방문해서 cost가 더 작을 것이므로
+                if(visited[nx][ny][cw] != 0)  //초기값이 아니라는 것은 이미 이전에 방문해서 cost가 더 작을 것이므로
                     continue;
                 visited[nx][ny][cw] = visited[cx][cy][cw]+1;
                 q1.push({nx,ny,cw});
@@ -58,7 +58,7 @@ void bfs(void) {
                 if(cw+1 > k)    //최대로 벽 부술 수 있는 횟수를 초과하는 경우
                     continue;
                 
-                if(visited[nx][ny][cw+1] != MAX)
+                if(visited[nx][ny][cw+1] != 0)
                     continue;
                     
                 visited[nx][ny][cw+1] = visited[cx][cy][cw]+1;
@@ -81,7 +81,6 @@ int main(void) {
         }
     }
     
-    fill(&visited[0][0][0], &visited[999][999][11], MAX);
     bfs();
     
     return 0;
